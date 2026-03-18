@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insult Xavfini Baholash</title>
+<style>
+:root {
+  --primary: #1a365d;
+  --primary-light: #2c5282;
+  --accent: #e53e3e;
+  --accent-orange: #dd6b20;
+  --accent-green: #38a169;
+  --bg: #faf8f5;
+  --card: #ffffff;
+  --text: #1a202c;
+  --muted: #718096;
+  --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Georgia, serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white; padding: 2.5rem 1.5rem; text-align: center;
+}
+.header-icon {
+  width: 70px; height: 70px; background: rgba(255,255,255,0.15);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem; font-size: 2rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.07); }
+}
+.header h1 { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.header p { font-size: 0.95rem; opacity: 0.85; font-family: Arial, sans-serif; font-weight: 300; }
+
+.main { max-width: 900px; margin: 0 auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+.card { background: var(--card); border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden; }
+.card-head {
+  background: linear-gradient(135deg, #f7fafc, #edf2f7);
+  padding: 1rem 1.5rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.card-head-icon {
+  width: 36px; height: 36px; background: var(--primary);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 1rem;
+}
+.card-head h2 { font-size: 1.1rem; color: var(--primary); }
+.card-body { padding: 1.5rem; }
+
+.form-group { margin-bottom: 1.5rem; }
+.form-label { font-weight: 600; font-family: Arial, sans-serif; font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem; }
+.form-label .unit { font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+
+.slider-val { display: flex; justify-content: space-between; margin-bottom: 0.4rem; align-items: baseline; }
+.slider-num { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+.slider-unit { font-size: 0.85rem; color: var(--muted); }
+.slider-hints { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
+
+input[type=range] {
+  width: 100%; height: 8px; border-radius: 4px; outline: none; cursor: pointer;
+  background: linear-gradient(to right, var(--accent-green), var(--accent-orange), var(--accent));
+  -webkit-appearance: none; appearance: none; border: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
+  background: white; border: 3px solid var(--primary); cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+input[type=range]::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: white; border: 3px solid var(--primary); cursor: pointer;
+}
+
+.toggle-group { display: flex; gap: 0.75rem; }
+.toggle-btn {
+  flex: 1; padding: 0.85rem; border: 2px solid var(--border);
+  border-radius: 10px; cursor: pointer; font-size: 1rem; font-family: Arial, sans-serif;
+  background: #fafafa; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+}
+.toggle-btn.active {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, rgba(26,54,93,0.06), rgba(44,82,130,0.12));
+  color: var(--primary); font-weight: 600;
+}
+
+.btn-calc {
+  width: 100%; padding: 1rem; border: none; border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white; font-size: 1.1rem; font-weight: 700; font-family: Arial, sans-serif;
+  cursor: pointer; box-shadow: 0 4px 14px rgba(26,54,93,0.3);
+  transition: all 0.2s; margin-top: 0.5rem;
+}
+.btn-calc:active { transform: scale(0.98); }
+.btn-reset {
+  width: 100%; padding: 0.85rem; border: 2px solid var(--border);
+  border-radius: 12px; background: transparent; color: var(--primary);
+  font-size: 1rem; font-family: Arial, sans-serif; cursor: pointer;
+  margin-top: 0.75rem; transition: all 0.2s;
+}
+
+.result-box { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+.gauge-wrap { position: relative; width: 200px; height: 120px; margin: 0 auto 2rem; }
+.gauge-arc {
+  width: 200px; height: 100px; border-radius: 100px 100px 0 0;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-orange), var(--accent));
+  overflow: hidden; position: relative;
+}
+.gauge-inner {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 140px; height: 70px; background: white; border-radius: 70px 70px 0 0;
+}
+.gauge-needle {
+  position: absolute; bottom: 0; left: 50%;
+  width: 4px; height: 82px; background: #1a202c;
+  transform-origin: bottom center; transform: translateX(-50%) rotate(-90deg);
+  border-radius: 2px; z-index: 2; transition: transform 1s cubic-bezier(0.34,1.56,0.64,1);
+}
+.gauge-needle::after {
+  content: ''; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%);
+  width: 14px; height: 14px; background: #1a202c; border-radius: 50%;
+}
+.gauge-labels {
+  display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--muted); padding: 0 8px; margin-top: 4px;
+}
+
+.pct-wrap { text-align: center; margin-bottom: 1.2rem; }
+.pct-num { font-size: 3.5rem; font-weight: 700; line-height: 1; }
+.pct-label { font-size: 0.9rem; color: var(--muted); font-family: Arial, sans-serif; margin-top: 0.2rem; }
+.c-low { color: var(--accent-green); }
+.c-medium { color: var(--accent-orange); }
+.c-high { color: var(--accent); }
+
+.risk-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.6rem 1.3rem; border-radius: 50px; font-weight: 600;
+  font-size: 1rem; font-family: Arial, sans-serif; margin-bottom: 1.2rem;
+}
+.badge-low { background: rgba(56,161,105,0.12); color: var(--accent-green); }
+.badge-medium { background: rgba(221,107,32,0.12); color: var(--accent-orange); }
+.badge-high { background: rgba(229,62,62,0.12); color: var(--accent); }
+
+.details-box { background: #f7fafc; border-radius: 12px; padding: 1.1rem; margin-bottom: 1.2rem; }
+.details-toggle { font-weight: 600; color: var(--primary); cursor: pointer; font-family: Arial, sans-serif; font-size: 0.95rem; display: flex; align-items: center; gap: 0.4rem; }
+.details-rows { margin-top: 0.9rem; display: none; }
+.details-rows.open { display: block; }
+.det-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.4rem 0; border-bottom: 1px dashed var(--border);
+  font-size: 0.88rem; font-family: Arial, sans-serif;
+}
+.det-row:last-child { border-bottom: none; font-weight: 700; padding-top: 0.6rem; border-top: 2px solid var(--border); }
+.det-label { color: var(--muted); }
+.det-val { color: var(--text); font-family: monospace; }
+
+.recs-title { font-size: 1rem; font-weight: 700; color: var(--primary); font-family: Arial, sans-serif; margin-bottom: 0.75rem; }
+.rec-item {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  padding: 0.65rem; background: #f7fafc; border-radius: 8px;
+  margin-bottom: 0.4rem; font-size: 0.9rem; font-family: Arial, sans-serif;
+}
+
+.placeholder { text-align: center; padding: 3rem 1rem; color: var(--muted); font-family: Arial, sans-serif; }
+.placeholder .big-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; padding: 1.5rem; }
+.info-item { background: #f7fafc; border-radius: 10px; padding: 1.2rem; text-align: center; }
+.info-item-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+.info-item-title { font-weight: 700; color: var(--primary); margin-bottom: 0.4rem; font-family: Arial, sans-serif; }
+.info-item-text { font-size: 0.85rem; color: var(--muted); font-family: Arial, sans-serif; line-height: 1.5; }
+
+footer { text-align: center; padding: 1.5rem; color: var(--muted); font-size: 0.85rem; font-family: Arial, sans-serif; }
+
+@media(min-width: 700px) {
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">🧠</div>
+  <h1>Insult Xavfini Baholash</h1>
+  <p>Logistik regressiya modeli asosida insult (stroke) ehtimolini hisoblang</p>
+</div>
+
+<div class="main">
+  <div class="two-col">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-icon">🧮</div>
+        <h2>Bemor Ma'lumotlari</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="form-group">
+          <div class="form-label">💧 Qon glyukozasi <span class="unit">(mmol/L)</span></div>
+          <div class="slider-val">
+            <span class="slider-num" id="glucose-val">5.5</span>
+            <span class="slider-unit">mmol/L</span>
+          </div>
+          <input type="range" id="glucose" min="3" max="15" step="0.1" value="5.5" oninput="updateSlider('glucose')">
+          <div class="slider-hints"><span>3.0</span><span>Normal: 4–6</span><span>15.0</span></div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">📈 Sistolik qon bosimi <span class="unit">(mmHg)</span></div>
+          <div class="slider-val">
+            <span class="slider-num" id="sbp-val">120</span>
+            <span class="slider-unit">mmHg</span>
+          </div>
+          <input type="range" id="sbp" min="80" max="220" step="1" value="120" oninput="updateSlider('sbp')">
+          <div class="slider-hints"><span>80</span><span>Normal: 90–120</span><span>220</span></div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">⚖️ Tana massasi indeksi (BMI) <span class="unit">(kg/m²)</span></div>
+          <div class="slider-val">
+            <span class="slider-num" id="bmi-val">25.0</span>
+            <span class="slider-unit">kg/m²</span>
+          </div>
+          <input type="range" id="bmi" min="15" max="45" step="0.1" value="25" oninput="updateSlider('bmi')">
+          <div class="slider-hints"><span>15</span><span>Normal: 18.5–25</span><span>45</span></div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">🚬 Zararli odatlar <span class="unit">(chekish, alkogol)</span></div>
+          <div class="toggle-group">
+            <button class="toggle-btn active" id="smoking-no" onclick="setToggle('smoking',0)">❌ Yo'q</button>
+            <button class="toggle-btn" id="smoking-yes" onclick="setToggle('smoking',1)">✅ Ha</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">🌙 Uyqusizlik <span class="unit">(insomnia)</span></div>
+          <div class="toggle-group">
+            <button class="toggle-btn active" id="insomnia-no" onclick="setToggle('insomnia',0)">❌ Yo'q</button>
+            <button class="toggle-btn" id="insomnia-yes" onclick="setToggle('insomnia',1)">✅ Ha</button>
+          </div>
+        </div>
+
+        <button class="btn-calc" onclick="calculate()">🧮 Xavfni Hisoblash</button>
+        <button class="btn-reset" id="reset-btn" style="display:none" onclick="resetForm()">🔄 Qayta Boshlash</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-icon">📊</div>
+        <h2>Natija</h2>
+      </div>
+      <div class="card-body">
+        <div class="placeholder" id="placeholder">
+          <div class="big-icon">🧠</div>
+          <p>Bemor ma'lumotlarini kiriting va "Xavfni Hisoblash" tugmasini bosing</p>
+        </div>
+
+        <div id="result-box" style="display:none">
+          <div class="gauge-wrap">
+            <div class="gauge-arc"><div class="gauge-inner"></div></div>
+            <div class="gauge-needle" id="needle"></div>
+            <div class="gauge-labels"><span>0%</span><span>50%</span><span>100%</span></div>
+          </div>
+
+          <div class="pct-wrap">
+            <div class="pct-num" id="pct-num">0%</div>
+            <div class="pct-label">Insult ehtimoli</div>
+          </div>
+
+          <div style="text-align:center; margin-bottom:1.2rem">
+            <span class="risk-badge" id="risk-badge"></span>
+          </div>
+
+          <div class="details-box">
+            <div class="details-toggle" onclick="toggleDetails()">▼ Hisoblash tafsilotlari</div>
+            <div class="details-rows" id="det-rows">
+              <div class="det-row"><span class="det-label">β₀ (boshlang'ich)</span><span class="det-val">-14.00</span></div>
+              <div class="det-row"><span class="det-label" id="d-g-l">Glyukoza</span><span class="det-val" id="d-g">—</span></div>
+              <div class="det-row"><span class="det-label" id="d-s-l">Qon bosimi</span><span class="det-val" id="d-s">—</span></div>
+              <div class="det-row"><span class="det-label" id="d-b-l">BMI</span><span class="det-val" id="d-b">—</span></div>
+              <div class="det-row"><span class="det-label" id="d-sm-l">Zararli odatlar</span><span class="det-val" id="d-sm">—</span></div>
+              <div class="det-row"><span class="det-label" id="d-i-l">Uyqusizlik</span><span class="det-val" id="d-i">—</span></div>
+              <div class="det-row"><span class="det-label">Z (logit)</span><span class="det-val" id="d-z">—</span></div>
+            </div>
+          </div>
+
+          <div class="recs-title">🛡️ Tavsiyalar</div>
+          <div id="recs-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-icon">ℹ️</div>
+      <h2>Model Haqida</h2>
+    </div>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-item-icon">📉</div>
+        <div class="info-item-title">Logistik Regressiya</div>
+        <div class="info-item-text">Model ikkilik natijalarni (insult bo'ladi/bo'lmaydi) ehtimol ko'rinishida baholaydi</div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon">🩺</div>
+        <div class="info-item-title">5 ta Risk Omili</div>
+        <div class="info-item-text">Glyukoza, qon bosimi, BMI, zararli odatlar va uyqu holati hisobga olinadi</div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon">👤</div>
+        <div class="info-item-title">Klinik Ahamiyat</div>
+        <div class="info-item-text">Natijalar faqat yo'naltiruvchi xarakterga ega. Aniq tashxis uchun shifokorga murojaat qiling</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  ⚠️ Bu kalkulyator faqat ma'lumot berish maqsadida yaratilgan va professional tibbiy maslahat o'rnini bosmaydi.<br>
+  <span style="margin-top:0.4rem;display:block">Formula: P = 1 / (1 + e<sup>-Z</sup>), bu yerda Z = β₀ + Σ(βᵢ × Xᵢ)</span>
+</footer>
+
+<script>
+var state = { smoking: 0, insomnia: 0 };
+
+function updateSlider(id) {
+  var val = parseFloat(document.getElementById(id).value);
+  var display = (id === 'glucose' || id === 'bmi') ? val.toFixed(1) : String(val);
+  document.getElementById(id + '-val').textContent = display;
+}
+
+function setToggle(type, val) {
+  state[type] = val;
+  document.getElementById(type + '-no').className = 'toggle-btn' + (val === 0 ? ' active' : '');
+  document.getElementById(type + '-yes').className = 'toggle-btn' + (val === 1 ? ' active' : '');
+}
+
+function toggleDetails() {
+  var el = document.getElementById('det-rows');
+  el.className = el.className.indexOf('open') >= 0 ? 'details-rows' : 'details-rows open';
+}
+
+function calculate() {
+  var glucose = parseFloat(document.getElementById('glucose').value);
+  var sbp = parseFloat(document.getElementById('sbp').value);
+  var bmi = parseFloat(document.getElementById('bmi').value);
+  var smoking = state.smoking;
+  var insomnia = state.insomnia;
+  var sbpS = sbp / 10;
+
+  var dG = 0.9 * glucose;
+  var dS = 0.4 * sbpS;
+  var dB = 0.15 * bmi;
+  var dSm = 1.0 * smoking;
+  var dI = 0.8 * insomnia;
+  var z = -14 + dG + dS + dB + dSm + dI;
+  var prob = 1 / (1 + Math.exp(-z));
+  var pct = (prob * 100).toFixed(1);
+
+  var level, text, badgeClass;
+  if (prob < 0.3) { level = 'low'; text = '✅ Past xavf'; badgeClass = 'risk-badge badge-low'; }
+  else if (prob < 0.6) { level = 'medium'; text = "⚠️ O'rtacha xavf"; badgeClass = 'risk-badge badge-medium'; }
+  else { level = 'high'; text = '🚨 Yuqori xavf'; badgeClass = 'risk-badge badge-high'; }
+
+  var deg = -90 + prob * 180;
+  document.getElementById('needle').style.transform = 'translateX(-50%) rotate(' + deg + 'deg)';
+
+  var pctEl = document.getElementById('pct-num');
+  pctEl.textContent = pct + '%';
+  pctEl.className = 'pct-num c-' + level;
+
+  var badge = document.getElementById('risk-badge');
+  badge.textContent = text;
+  badge.className = badgeClass;
+
+  document.getElementById('d-g-l').textContent = 'Glyukoza (0.9 \u00d7 ' + glucose + ')';
+  document.getElementById('d-g').textContent = '+' + dG.toFixed(2);
+  document.getElementById('d-s-l').textContent = 'Qon bosimi (0.4 \u00d7 ' + sbpS.toFixed(1) + ')';
+  document.getElementById('d-s').textContent = '+' + dS.toFixed(2);
+  document.getElementById('d-b-l').textContent = 'BMI (0.15 \u00d7 ' + bmi + ')';
+  document.getElementById('d-b').textContent = '+' + dB.toFixed(2);
+  document.getElementById('d-sm-l').textContent = 'Zararli odatlar (1.0 \u00d7 ' + smoking + ')';
+  document.getElementById('d-sm').textContent = '+' + dSm.toFixed(2);
+  document.getElementById('d-i-l').textContent = 'Uyqusizlik (0.8 \u00d7 ' + insomnia + ')';
+  document.getElementById('d-i').textContent = '+' + dI.toFixed(2);
+  document.getElementById('d-z').textContent = z.toFixed(3);
+
+  var recs = [];
+  if (glucose > 6) recs.push("Qon glyukoza darajasini nazorat qiling va shifokor bilan maslahatlashing");
+  if (sbp > 140) recs.push("Qon bosimini muntazam o'lchang va gipertenziya davolashni ko'rib chiqing");
+  if (bmi > 25) recs.push("Sog'lom ovqatlanish va jismoniy faollik orqali vaznni normallashtiring");
+  if (smoking === 1) recs.push("Chekishni to'xtatish insult xavfini sezilarli darajada kamaytiradi");
+  if (insomnia === 1) recs.push("Uyqu gigiyenasini yaxshilang va zarur bo'lsa mutaxassisga murojaat qiling");
+  if (recs.length === 0) { recs.push("Sog'lom turmush tarzini davom ettiring"); recs.push("Muntazam tibbiy ko'rik o'tkazib turing"); }
+
+  var html = '';
+  for (var i = 0; i < recs.length; i++) {
+    html += '<div class="rec-item"><span style="flex-shrink:0">✔️</span>' + recs[i] + '</div>';
+  }
+  document.getElementById('recs-list').innerHTML = html;
+
+  document.getElementById('placeholder').style.display = 'none';
+  document.getElementById('result-box').style.display = 'block';
+  document.getElementById('reset-btn').style.display = 'block';
+}
+
+function resetForm() {
+  document.getElementById('glucose').value = 5.5; updateSlider('glucose');
+  document.getElementById('sbp').value = 120; updateSlider('sbp');
+  document.getElementById('bmi').value = 25; updateSlider('bmi');
+  setToggle('smoking', 0);
+  setToggle('insomnia', 0);
+  document.getElementById('placeholder').style.display = 'block';
+  document.getElementById('result-box').style.display = 'none';
+  document.getElementById('reset-btn').style.display = 'none';
+  document.getElementById('det-rows').className = 'details-rows';
+}
+</script>
+</body>
+</html>
